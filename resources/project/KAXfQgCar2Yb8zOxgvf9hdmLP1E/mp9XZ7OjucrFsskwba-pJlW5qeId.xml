@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Info File="supporting/initVars.m" GroupUUID="" Icon="" Name="initVars" Type="StartUp" Visible="0">
+    <Extension Name="StartUpPrev" Value="4926746c-5208-4f2c-961e-d6a8ef3a4ba2"/>
+</Info>
