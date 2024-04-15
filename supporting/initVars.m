@@ -1,6 +1,6 @@
 g = 9.81;
 
-m = 0.030;
+m = 0.0461;
 
 
 % Accurate body inertia matrix [kg.m^2]
