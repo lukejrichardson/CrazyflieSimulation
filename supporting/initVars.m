@@ -2,6 +2,10 @@ g = 9.81;
 
 m = 0.035;
 
+% Position and velocity PID period (100Hz)
+Ts_PID_position = 0.01; % s
+% Attitude and attitude rate PID period (500Hz)
+Ts_PID_attitude = 0.002; % s
 
 % Accurate body inertia matrix [kg.m^2]
 I = 10^(-6)*[16.57   0.83   0.72; 0.83    16.66   1.8; 0.72    1.8     29.26];
