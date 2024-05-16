@@ -34,31 +34,33 @@ d = 0.06761;    % m
 
 % Loading crazyflie logged data into workspace for model verification
 
-location = "CF_logData.xlsx";
+locationInputs = "Inputs-t,x,y,z,yaw.csv";
+locationPose = "Pose-t,x,y,z,roll,pitch,yaw.csv";
 
 
-opts = detectImportOptions(location);
-opts.Sheet = 'Sheet1';
-OrientationData = readmatrix(location,opts);
-time = OrientationData(:,1);
-Thrust = OrientationData(:,2);
-Thrust = [time,Thrust];
-Roll= OrientationData(:,3);
-Roll=[time,Roll];
-Pitch= OrientationData(:,4);
-Pitch=[time,Pitch];
-Yaw= OrientationData(:,5);
-Yaw=[time,Yaw];
-EstimateRoll= OrientationData(:,6);
-EstimateRoll=[time,EstimateRoll];
-EstimatePitch= OrientationData(:,7);
-EstimatePitch=[time,EstimatePitch];
-EstimateYaw= OrientationData(:,8);
-EstimateYaw=[time,EstimateYaw];
-Estimatex= OrientationData(:,9);
+opts = detectImportOptions(locationInputs);
+InputData = readmatrix(locationInputs,opts);
+time = InputData(:,1);
+input_x = InputData(:,2);
+input_x = [time,input_x];
+input_y = InputData(:,3);
+input_y = [time,input_y];
+input_z = InputData(:,4);
+input_z = [time,input_z];
+input_yaw = InputData(:,5);
+input_yaw =[time,input_yaw];
+
+opts = detectImportOptions(locationPose);
+PoseData = readmatrix(locationPose,opts);
+Estimatex= PoseData(:,2);
 Estimatex=[time,Estimatex];
-Estimatey= OrientationData(:,10);
+Estimatey= PoseData(:,3);
 Estimatey=[time,Estimatey];
-Estimatez= OrientationData(:,11);
+Estimatez= PoseData(:,4);
 Estimatez=[time,Estimatez];
-optsRate = detectImportOptions(location);  
+EstimateRoll= PoseData(:,5);
+EstimateRoll=[time,EstimateRoll];
+EstimatePitch= PoseData(:,6);
+EstimatePitch=[time,EstimatePitch];
+EstimateYaw= PoseData(:,7);
+EstimateYaw=[time,EstimateYaw];
