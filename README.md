@@ -1,1 +1,1 @@
-## Crazyflie.slx is currently the main file, but uses NWU axes with inverted pitch
+## Main.slx is the working file; uses NWU axes with inverted pitch.
