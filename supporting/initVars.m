@@ -36,6 +36,7 @@ d = 0.06761;    % m
 
 locationInputs = "Inputs-t,x,y,z,yaw.csv";
 locationPose = "Pose-t,x,y,z,roll,pitch,yaw.csv";
+locationMotors = "Motors-t,m1,m2,m3,m4.csv";
 
 
 opts = detectImportOptions(locationInputs);
@@ -64,3 +65,14 @@ EstimatePitch= PoseData(:,6);
 EstimatePitch=[time,EstimatePitch];
 EstimateYaw= PoseData(:,7);
 EstimateYaw=[time,EstimateYaw];
+
+opts = detectImportOptions(locationMotors);
+MotorData = readmatrix(locationMotors,opts);
+m1= MotorData(:,2);
+m1=[time,m1];
+m2= MotorData(:,3);
+m2=[time,m2];
+m3= MotorData(:,4);
+m3=[time,m3];
+m4= MotorData(:,5);
+m4=[time,m4];
