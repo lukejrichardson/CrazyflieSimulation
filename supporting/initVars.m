@@ -1,6 +1,7 @@
 g = 9.81;
 
-m = 0.035;
+% m = 0.032; % measured value
+m = 0.0384; % optimized value 
 
 % Position and velocity PID period (100Hz)
 Ts_PID_position = 0.01; % s
