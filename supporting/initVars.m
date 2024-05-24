@@ -1,6 +1,8 @@
 g = 9.81;
 
-m = 0.035;
+% Masses
+m = 0.035; % Measured mass
+% m = 0.0382; % Optimized mass
 
 % Position and velocity PID period (100Hz)
 Ts_PID_position = 0.01; % s
@@ -9,6 +11,8 @@ Ts_PID_attitude = 0.002; % s
 
 % Accurate body inertia matrix [kg.m^2]
 I = 10^(-6)*[16.57   0.83   0.72; 0.83    16.66   1.8; 0.72    1.8     29.26];
+% I = 10^(-6)*[227.43  0.83   0.72; 0.83    16.66   1.8; 0.72    1.8     29.26]; % Optimized on x displacement
+% I = 10^(-6) * [78.78   0.83   0.72; 0.83    131.64   1.8; 0.72    1.8     29.26];
 
 % Diagonal body inertia matrix [kg.m^2]
 %I = 10^(-6)*[16.57   0   0; 0    16.66   0; 0    0     29.26];
@@ -21,7 +25,9 @@ I = 10^(-6)*[16.57   0.83   0.72; 0.83    16.66   1.8; 0.72    1.8     29.26];
 I_inv = inv(I);
 
 % Thrust coefficient
-k_t = (3.1582*10^(-10))/(((2*pi())/60)^2);     % N/(rad/s)
+% k_t = (3.1582*10^(-10))/(((2*pi())/60)^2);     % N/(rad/s), CF system ID
+k_t = 2.631011570958460e-08; % lsqnonlin optimized value on z
+% k_t = 6.112275808845396e-08; % lsqnonlin optimized value on x
 
 % Prop drag coefficient
 k_q = (7.9379*10^(-12))/(((2*pi())/60)^2);    % N.m/(rad/s)
