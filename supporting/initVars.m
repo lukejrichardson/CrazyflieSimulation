@@ -2,23 +2,23 @@ g = 9.81;
 
 m = 0.032;
 
+% w_n = 0.02;%22;
+% zeta = 1.2;%.0471;
 % Position and velocity PID period (100Hz)
 Ts_PID_position = 0.01; % s
 % Attitude and attitude rate PID period (500Hz)
 Ts_PID_attitude = 0.002; % s
 
 % Accurate body inertia matrix [kg.m^2]
-I = 10^(-6)*[16.57   0.83   0.72; 0.83    16.66   1.8; 0.72    1.8     29.26];
+% I = 10^(-6)*[16.57   0.83   0.72; 0.83    16.66    1.8; 0.72    1.8     29.26];
 
 % Diagonal body inertia matrix [kg.m^2]
-% I = 10^(-6)*[16.57   0   0; 0    16.66   0; 0    0     29.26];
+I = 10^(-6)*[16.57   0   0; 0    16.66   0; 0    0     29.26];
 
 % Alternate body inertia matrix [kg.m^2]
 % I = 10^(-6)*[16.57*1.2      0.83        0.72/10;...
 %             0.83        16.66*1.2       1.8*10;...
 %             0.72/10     1.8*10      29.26*1.5];
-
-I_inv = inv(I);
 
 % Thrust coefficient
 k_t = (3.1582*10^(-10))/(((2*pi())/60)^2);     % N/(rad/s)
@@ -36,11 +36,11 @@ d = 0.065;    % m
 
 locationInputs = "Inputs-t,x,y,z,yaw.csv";
 locationPose = "Pose-t,x,y,z,roll,pitch,yaw.csv";
-locationPoseRates = "PoseRates-t,vx,vy,vz,rateRoll,ratePitch,rateYaw.csv";
-% locationMotors = "Motors-t,m1,m2,m3,m4.csv";
+% locationPoseRates = "PoseRates-t,vx,vy,vz,rateRoll,ratePitch,rateYaw.csv";
+locationMotors = "Motors-t,m1,m2,m3,m4.csv";
 % locationPosIntegs = "PosIntegrators-t,Xi,Yi,Zi,VXi,VYi,VZi.csv";
 % locationAttIntegs = "AttIntegrators-t,rollI,pitchI,yawI,rollRateI,pitchRateI,yawRateI.csv";
-
+% locationMotorModelling = "MotorModelling-t,inputx,m1,m2,m3,m4,ratePitch.csv";
 
 opts = detectImportOptions(locationInputs);
 InputData = readmatrix(locationInputs,opts);
@@ -70,34 +70,34 @@ EstimateYaw= PoseData(:,7);
 EstimateYaw=[time,EstimateYaw];
 
 
-opts = detectImportOptions(locationPoseRates);
-PoseRateData = readmatrix(locationPoseRates,opts);
-Estimatevx= PoseRateData(:,2);
-Estimatevx=[time,Estimatevx];
-Estimatevy= PoseRateData(:,3);
-Estimatevy=[time,Estimatevy];
-Estimatevz= PoseRateData(:,4);
-Estimatevz=[time,Estimatevz];
-EstimateRollRate= PoseRateData(:,5);
-EstimateRollRate=[time,EstimateRollRate];
-EstimatePitchRate= PoseRateData(:,6);
-EstimatePitchRate=[time,EstimatePitchRate];
-EstimateYawRate= PoseRateData(:,7);
-EstimateYawRate=[time,EstimateYawRate];
+% opts = detectImportOptions(locationPoseRates);
+% PoseRateData = readmatrix(locationPoseRates,opts);
+% Estimatevx= PoseRateData(:,2);
+% Estimatevx=[time,Estimatevx];
+% Estimatevy= PoseRateData(:,3);
+% Estimatevy=[time,Estimatevy];
+% Estimatevz= PoseRateData(:,4);
+% Estimatevz=[time,Estimatevz];
+% EstimateRollRate= PoseRateData(:,5);
+% EstimateRollRate=[time,EstimateRollRate];
+% EstimatePitchRate= PoseRateData(:,6);
+% EstimatePitchRate=[time,EstimatePitchRate];
+% EstimateYawRate= PoseRateData(:,7);
+% EstimateYawRate=[time,EstimateYawRate];
 
 
-% opts = detectImportOptions(locationMotors);
-% MotorData = readmatrix(locationMotors,opts);
-% m1= MotorData(:,2);
-% m1=[time,m1];
-% m2= MotorData(:,3);
-% m2=[time,m2];
-% m3= MotorData(:,4);
-% m3=[time,m3];
-% m4= MotorData(:,5);
-% m4=[time,m4];
-% 
-% 
+opts = detectImportOptions(locationMotors);
+MotorData = readmatrix(locationMotors,opts);
+m1= MotorData(:,2);
+m1=[time,m1];
+m2= MotorData(:,3);
+m2=[time,m2];
+m3= MotorData(:,4);
+m3=[time,m3];
+m4= MotorData(:,5);
+m4=[time,m4];
+
+
 % opts = detectImportOptions(locationPosIntegs);
 % PosIData = readmatrix(locationPosIntegs,opts);
 % time = PosIData(:,1);
@@ -130,3 +130,19 @@ EstimateYawRate=[time,EstimateYawRate];
 % PitchRateInteg=[time,PitchRateInteg];
 % YawRateInteg= AttIData(:,7);
 % YawRateInteg=[time,YawRateInteg];
+
+% opts = detectImportOptions(locationMotorModelling);
+% MotorModellingData = readmatrix(locationMotorModelling,opts);
+% time = MotorModellingData(:,1);
+% input_x = MotorModellingData(:,2);
+% input_x = [time, input_x];
+% m1= MotorModellingData(:,3);
+% m1=[time,m1];
+% m2= MotorModellingData(:,4);
+% m2=[time,m2];
+% m3= MotorModellingData(:,5);
+% m3=[time,m3];
+% m4= MotorModellingData(:,6);
+% m4=[time,m4];
+% pitchRate= MotorModellingData(:,7);
+% pitchRate=[time,pitchRate];
