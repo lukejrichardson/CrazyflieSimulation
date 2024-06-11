@@ -2,8 +2,6 @@ g = 9.81;
 
 m = 0.032;
 
-% w_n = 0.02;%22;
-% zeta = 1.2;%.0471;
 % Position and velocity PID period (100Hz)
 Ts_PID_position = 0.01; % s
 % Attitude and attitude rate PID period (500Hz)
@@ -27,7 +25,7 @@ k_t = (3.1582*10^(-10))/(((2*pi())/60)^2);     % N/(rad/s)
 k_q = (7.9379*10^(-12))/(((2*pi())/60)^2);    % N.m/(rad/s)
 
 % Motor rotor/prop inertia
-J_m = 0; % 1*10^(-6);    % kg.m^2
+J_m = 0;     % kg.m^2
 
 % Adjacent motor distance
 d = 0.065;    % m
